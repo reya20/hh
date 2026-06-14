@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bullet Club drink</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      #cart-body tr {
+        border-bottom: 1px solid #f1f5f9;
+      }
+      #cart-body td {
+        padding: 12px 0;
+        vertical-align: middle;
+      }
+      #cart-body td:nth-child(3),
+      .cart-table th:nth-child(3) {
+        text-align: center;
+      }
+      #cart-body td:nth-child(3) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        min-height: 45px;
+      }
+      #cart-body td button {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="left-section">
+        <div class="section-header">
+          <h2>🥤 Bullet Club drink</h2>
+          <div class="search-container">
+            <input
+              type="text"
+              id="search-product"
+              placeholder="Search drink items..."
+            />
+          </div>
+        </div>
+
+        <div class="product-grid" id="product-grid"></div>
+      </div>
+
+      <div class="right-section">
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+          "
+        >
+          <h3
+            style="margin: 0; font-size: 18px; font-weight: 700; color: #1e293b"
+          >
+            Customer
+          </h3>
+          <a
+            href="history.html"
+            class="history-link"
+            style="
+              color: #4f46e5;
+              font-size: 14px;
+              font-weight: 700;
+              text-decoration: none;
+            "
+          >
+            📊 Open History Dashboard →
+          </a>
+        </div>
+
+        <div class="customer-info-container">
+          <div class="form-group">
+            <label for="customer-name">Customer Name</label>
+            <input
+              type="text"
+              id="customer-name"
+              placeholder="Enter letters only..."
+              required
+              autocomplete="off"
+              oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="customer-email">Gmail Account</label>
+            <input
+              type="email"
+              id="customer-email"
+              placeholder="example@gmail.com"
+              required
+              autocomplete="off"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="order-date-from">Purchase Date</label>
+            <input type="date" id="order-date-from" />
+          </div>
+        </div>
+
+        <h4
+          style="
+            margin: 20px 0 10px 0;
+            font-size: 14px;
+            font-weight: 700;
+            color: #1e293b;
+          "
+        >
+          Your Order List
+        </h4>
+
+        <div class="cart-container">
+          <table
+            id="cart-table"
+            style="width: 100%; border-collapse: collapse; table-layout: fixed"
+          >
+            <thead>
+              <tr style="border-bottom: 2px solid #e2e8f0">
+                <th
+                  style="
+                    text-align: left;
+                    padding-bottom: 8px;
+                    font-size: 12px;
+                    color: #64748b;
+                    text-transform: uppercase;
+                    width: 40%;
+                  "
+                >
+                  Item
+                </th>
+                <th
+                  style="
+                    text-align: left;
+                    padding-bottom: 8px;
+                    font-size: 12px;
+                    color: #64748b;
+                    text-transform: uppercase;
+                    width: 20%;
+                  "
+                >
+                  Price
+                </th>
+                <th
+                  style="
+                    text-align: center;
+                    padding-bottom: 8px;
+                    font-size: 12px;
+                    color: #64748b;
+                    text-transform: uppercase;
+                    width: 22%;
+                  "
+                >
+                  Qty
+                </th>
+                <th
+                  style="
+                    text-align: right;
+                    padding-bottom: 8px;
+                    font-size: 12px;
+                    color: #64748b;
+                    text-transform: uppercase;
+                    width: 18%;
+                  "
+                >
+                  Total
+                </th>
+              </tr>
+            </thead>
+            <tbody id="cart-body"></tbody>
+          </table>
+        </div>
+
+        <div
+          class="cart-summary"
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 2px solid #e2e8f0;
+          "
+        >
+          <span style="font-size: 16px; font-weight: 700; color: #1e293b"
+            >Grand Total:</span
+          >
+          <span style="font-size: 22px; font-weight: 800; color: #4f46e5"
+            >$<span id="grand-total">0.00</span></span
+          >
+        </div>
+
+        <div
+          class="action-buttons"
+          style="
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+          "
+        >
+          <button
+            type="button"
+            class="btn btn-save"
+            style="width: 100%; padding: 12px; font-weight: 700"
+            onclick="saveCustomerData()"
+          >
+            💾 Save Order
+          </button>
+          <button
+            type="button"
+            class="btn btn-print"
+            style="
+              width: 100%;
+              padding: 12px;
+              font-weight: 700;
+              background-color: #0284c7;
+            "
+            onclick="printReceipt()"
+          >
+            🖨️ Print Single Receipt
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="java.js"></script>
+  </body>
+</html>

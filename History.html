@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sales History Logs Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      body {
+        font-family: sans-serif;
+        padding: 30px;
+        background-color: #f8fafc;
+        color: #0f172a;
+      }
+      .dashboard-container {
+        max-width: 1000px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 12px;
+        padding: 24px;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      }
+      .nav-back {
+        color: #4f46e5;
+        text-decoration: none;
+        font-weight: bold;
+        display: inline-block;
+        margin-bottom: 20px;
+      }
+
+      /* Layout styling matched directly to user screenshot structures */
+      .filter-row {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 20px;
+        align-items: flex-end;
+      }
+      .date-box {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+      }
+      .date-box label {
+        font-size: 14px;
+        font-weight: 600;
+        color: #4f5e74;
+        margin-bottom: 6px;
+      }
+      .date-box input {
+        padding: 10px;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        font-size: 15px;
+      }
+
+      .button-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin-bottom: 30px;
+      }
+      .btn-search {
+        background: #f0f4f8;
+        color: #1e293b;
+        border: 1px solid #e2e8f0;
+        padding: 14px;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+      .btn-summary {
+        background: #ff0000;
+        color: white;
+        border: none;
+        padding: 14px;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+
+      .dashboard-header h3 {
+        margin: 0 0 6px 0;
+        font-size: 18px;
+        color: #0f172a;
+      }
+      .dashboard-header p {
+        margin: 0 0 16px 0;
+        font-size: 13px;
+        color: #64748b;
+      }
+      .dashboard-actions {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 16px;
+      }
+      .btn-tab {
+        background: #f1f5f9;
+        border: 1px solid #cbd5e1;
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 13px;
+        cursor: pointer;
+        font-weight: 500;
+      }
+
+      /* Dark dashboard log items corresponding to visual structures */
+      .history-log-output {
+        background: #0b1329;
+        border-radius: 12px;
+        padding: 16px;
+        min-height: 120px;
+      }
+      .history-log-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #0f172a;
+        padding: 14px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #1e293b;
+      }
+      .history-log-left {
+        color: #38bdf8;
+        font-size: 14px;
+      }
+      .btn-delete-log {
+        background: #ef4444;
+        color: white;
+        border: none;
+        padding: 6px 14px;
+        border-radius: 6px;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 13px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="dashboard-container">
+      <a href="index.html" class="nav-back">← Back to Drinks Order Station</a>
+
+      <!-- FROM DATE TO DATE FILTER GRID BLOCK (Screenshot 2026-06-08 134312.png) -->
+      <div class="filter-row">
+        <div class="date-box">
+          <label>From Date</label>
+          <input type="date" id="order-date-from" />
+        </div>
+        <div class="date-box">
+          <label>To Date</label>
+          <input type="date" id="order-date-to" />
+        </div>
+      </div>
+
+      <!-- SUBMIT FILTER & SUMMARY ACTION CONTROLS -->
+      <div class="button-grid">
+        <button class="btn-search" onclick="searchByDateRange()">
+          🔍 Search date
+        </button>
+        <button class="btn-summary" onclick="printDailySalesSummary()">
+          📊 Print Sales Summary
+        </button>
+      </div>
+
+      <!-- LOG CONTAINER CONTAINER DOCK (Screenshot 2026-06-08 134316.png) -->
+      <div class="dashboard-header">
+        <h3>Saved History Logs Dashboard</h3>
+        <p>
+          Click individual transaction logs below to automatically load past
+          orders back into the live workspace context.
+        </p>
+      </div>
+
+      <div class="dashboard-actions">
+        <button class="btn-tab" onclick="showSavedData(true)">
+          📋 Show All Logs
+        </button>
+        <button class="btn-tab" onclick="showSavedData(false)">
+          ⏳ Filter By Current Selected Range
+        </button>
+      </div>
+
+      <!-- Output Stream Element Targeted directly via Javascript -->
+      <div class="history-log-output" id="history-log-output"></div>
+    </div>
+
+    <script src="java.js"></script>
+  </body>
+</html>
